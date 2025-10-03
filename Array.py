@@ -1,3 +1,4 @@
+import math
 
 class Array:
 
@@ -21,14 +22,14 @@ class Array:
     """
 
     def __init__(self, capacity=10):
-        if !(capacity > 0):
+        if not (capacity > 0):
             print("Capacity must be greater than 0")
             return
         self.array = [None] * capacity
         self._length = 0
         self.new_size_ratio = 2
         self.reduce_threshold = 0.25
-        self.alloc = 0
+        self.alloc = capacity
         self.og_alloc = capacity
 
 
@@ -39,9 +40,7 @@ class Array:
     """
 
     def isEmpty(self):
-        if len(self) == 0:
-            return True
-        return False
+        return len(self) == 0 
 
 
     """
@@ -58,7 +57,7 @@ class Array:
 
     def append(self, new_item): 
         if (len(self) == self.alloc):
-            self.resize(self.new_size_ratio* len(self)
+            self.resize(self.new_size_ratio* len(self))
         self[len(self)]= new_item
         self._length += 1
 
@@ -102,7 +101,18 @@ class Array:
     """
 
     def prepend(self, new_item):
+        if((self.alloc - len(self)) <= 0):
+            self.resize(len(self)* self.new_size_ratio)
         
+        #shift
+        for i in range (len(self),0,-1):
+            self[i] = self[i -1]
+        
+        #prepend
+        self[0] = new_item
+
+        #increase length
+        self._length +=1
 
     """
     Method to insert a new item after a particular index from the array
@@ -122,7 +132,20 @@ class Array:
     """
 
     def insert_after(self, index, new_item): 
-
+        #check for validity
+        if index < 0 or index >= len(self):
+            print("Index out of Bounds")
+            return
+        
+        if((self.alloc - len(self)) <= 0):
+            self.resize(len(self)*self.new_size_ratio)
+        #shift
+        for i in range (len(self), index, -1):
+            self[i] = self[i -1]
+        #insert
+        self[index+1] = new_item
+        #increase length
+        self._length +=1
 
     """
     Method to search for an element in the array
@@ -133,7 +156,11 @@ class Array:
             The item to be searched
     """
 
-    def search(self, item): 
+    def search(self, item):
+        for i in range (len(self)):
+            if self[i] == item:
+                return i
+        return -1
 
     """
     Method to remove an item at a specific index from the array
@@ -157,7 +184,29 @@ class Array:
 
     """
 
-    def remove_at(self, index): 
+    def remove_at(self, index):
+        #check validity
+        if index < 0 or index >= len(self):
+            print("Index out of Bounds")
+            return
+        if len(self) == 0:
+            print("The array is empty")
+            return -1
+        #remove
+        self[index] = None
+        #shift left
+        for i in range (index,len(self)-1,1):
+            self[i] = self[i+ 1]
+       
+       self[len(self) - 1] = None #Reset the final element
+       #update length
+        self._length -= 1
+        #check for the resize
+        if (len(self)/self.alloc) <= self.reduce_threshold:
+            self.resize(max(math.floor(self.alloc*self.reduce_threshold)),1)
+        
+
+
     """
     Method to "remove" an item from the END of the array
     The method needs to check if the array is empty and it shows
@@ -176,9 +225,13 @@ class Array:
             print("THe array is empty")
             return -1
 
-        self.array[len(self) - 1] = None
-        if (len(self)/alloc) >= self.reduce_threshold:
-            resize(math.floor(len(self)*reduce_threshold))
+        self[len(self) - 1] = None #REMOVE ELEMENT
+        #Decrement length
+        self._length -= 1
+        #Check for resize
+        if (len(self)/self.alloc) <= self.reduce_threshold:
+            self.resize(max(math.floor(self.alloc*self.reduce_threshold)),1)
+
 
     """
     Method that empties the array, and resizes it back to its initial capacity
@@ -186,11 +239,9 @@ class Array:
     It also resets the length of the array
     """
 
-    def clear(self:
-        for i in range(len(self)):
-            self.array[i] = None
+    def clear(self):
         self.resize(self.og_alloc)
-        self._length = self.og_alloc
+        self._length = 0
 
     """
     Magic method that is called when we use the "[" and "]" to get an 
@@ -200,7 +251,7 @@ class Array:
     """
 
     def __getitem__(self, index):
-        if (index > 0 and index < len(self)):
+        if (index >= 0 and index < len(self)):
             return self.array[index]
         return "Index out of Bounds"
     """
@@ -220,7 +271,9 @@ class Array:
     """
 
     def __str__(self): 
-       print( "[" +.join(str(item) for item in self.array +"]")
+        #remove NONE
+        data = self.array[:len(self)]
+        return  "[" +",".join(str(item) for item in data) +"]"
     """
     Magic method that is called when we use the len() to return the 
     length of the array
