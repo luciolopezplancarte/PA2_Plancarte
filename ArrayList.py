@@ -1,3 +1,7 @@
+"""
+Lucio Plancarte
+
+"""
 import math
 
 class Array:
@@ -21,6 +25,7 @@ class Array:
             The initial capacity for the array
     """
 
+    #O(1)
     def __init__(self, capacity=10):
         if not (capacity > 0):
             print("Capacity must be greater than 0")
@@ -38,7 +43,7 @@ class Array:
     Method to check if the array is empty
     The method returns True or False if the array is empty
     """
-
+    #O(1)
     def isEmpty(self):
         return len(self) == 0 
 
@@ -55,6 +60,7 @@ class Array:
             The new item to be appended
     """
 
+    #O(1)
     def append(self, new_item): 
         #print(f"length: {len(self)} \n alloc: {self.alloc}")
         if (len(self)  == self.alloc):
@@ -80,6 +86,7 @@ class Array:
             The new size for the array
     """
 
+    #O(n)
     def resize(self, new_allocation_size):
         self.alloc = max(new_allocation_size, 1)
         print("\tResizing...")
@@ -102,6 +109,7 @@ class Array:
             The new item to prepend
     """
 
+    #O(n)
     def prepend(self, new_item):
         if((self.alloc - len(self)) <= 0):
             self.resize(len(self)* self.new_size_ratio)
@@ -133,6 +141,7 @@ class Array:
             The new item to be appended
     """
 
+    #O(n)
     def insert_after(self, index, new_item): 
         #check for validity
         if index < 0 or index >= len(self):
@@ -158,6 +167,7 @@ class Array:
             The item to be searched
     """
 
+    #O(n)
     def search(self, item):
         for i in range (len(self)):
             if self[i] == item:
@@ -186,6 +196,7 @@ class Array:
 
     """
 
+    #O(n)
     def remove_at(self, index):
         #check validity
         if index < 0 or index >= len(self):
@@ -222,7 +233,7 @@ class Array:
     the max() built-in method.
     After removing the element it reduces the length of the array.
     """
-
+    #O(n) because of the resize
     def remove(self):
         if len(self) == 0:
             print("The array is empty.")
@@ -242,7 +253,7 @@ class Array:
     using the resize() method.
     It also resets the length of the array
     """
-
+    #O(n)
     def clear(self):
         self.resize(self.og_alloc)
         self._length = 0
@@ -253,7 +264,8 @@ class Array:
     The method checks if the index is valid and returns the value.
     Otherwise, returns "Index out of Bounds"
     """
-
+    
+    #O(1)
     def __getitem__(self, index):
         if (index >= 0 and index < len(self)):
             return self.array[index]
@@ -264,6 +276,8 @@ class Array:
     The method checks if the index is valid and if it, it makes the change.
     Otherwise, prints "Index out of bounds"
     """
+    
+    #O(1)
     def __setitem__(self,index, item):
         if (index >= 0 and index < self.alloc):
             self.array[index] = item
@@ -275,6 +289,7 @@ class Array:
     This method returns a String.
     """
 
+    #O(n)
     def __str__(self): 
         #remove NONE
         data = self.array[:len(self)]
@@ -283,7 +298,8 @@ class Array:
     Magic method that is called when we use the len() to return the 
     length of the array
     """
-
+    
+    #O(1)
     def __len__(self): 
         return self._length
 

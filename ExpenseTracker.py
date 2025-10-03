@@ -1,5 +1,9 @@
+"""
+Lucio Plancarte
+"""
+
 from ArrayList import Array
-from expense import Expense
+from Expense import Expense
 
 class ExpenseTracker(Array):
 
