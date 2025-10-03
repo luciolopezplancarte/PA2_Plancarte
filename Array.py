@@ -25,7 +25,7 @@ class Array:
             print("Capacity must be greater than 0")
             return
         self.array = [None] * capacity
-        self.length = capacity
+        self._length = 0
         self.new_size_ratio = 2
         self.reduce_threshold = 0.25
         self.alloc = 0
@@ -39,7 +39,7 @@ class Array:
     """
 
     def isEmpty(self):
-        if self.length == 0:
+        if len(self) == 0:
             return True
         return False
 
@@ -49,15 +49,20 @@ class Array:
     The method recieves a new item and append it to the array
     The method needs to check if the array is full.
     If it is full it calls the resize() method before adding a new element
-    The new sie passsed applies the new size ratio to the current size.
+    The new size passsed applies the new size ratio to the current size.
     The length is incremented after inserting the new item.
     PARAMETERS:
         new_item: int
             The new item to be appended
     """
 
-    def append(self, new_item): # You cannot change this line
-        
+    def append(self, new_item): 
+        if (len(self) == self.alloc):
+            self.resize(self.new_size_ratio* len(self)
+        self[len(self)]= new_item
+        self._length += 1
+
+
 
     """
     Method to resize the array (expand or shrink)
@@ -74,7 +79,15 @@ class Array:
             The new size for the array
     """
 
-    def resize(self, new_allocation_size): # You cannot change this line
+    def resize(self, new_allocation_size):
+        self.alloc = max(new_allocation_size, 1)
+        print("Resizing...")
+        temp_arr = [None]* self.alloc
+        for i in range(len(self):
+            temp_arr[i] = self[i]
+        self.array = temp_arr
+
+
 
     """
     Method to PREPEND a new item a the BEGINNING of the array (index 0)
@@ -88,7 +101,8 @@ class Array:
             The new item to prepend
     """
 
-    def prepend(self, new_item): # You cannot change this line
+    def prepend(self, new_item):
+        
 
     """
     Method to insert a new item after a particular index from the array
@@ -107,19 +121,19 @@ class Array:
             The new item to be appended
     """
 
-    def insert_after(self, index, new_item): # You cannot change this line
+    def insert_after(self, index, new_item): 
 
 
     """
     Method to search for an element in the array
     The method returns the index of the first element that matches the value
-    The method returns -` if the item is not in the list
+    The method returns -1 if the item is not in the list
     PARAMETERS:
         item: any
             The item to be searched
     """
 
-    def search(self, item): # You cannot change this line
+    def search(self, item): 
 
     """
     Method to remove an item at a specific index from the array
@@ -143,8 +157,7 @@ class Array:
 
     """
 
-    def remove_at(self, index): # You cannot change this line
-
+    def remove_at(self, index): 
     """
     Method to "remove" an item from the END of the array
     The method needs to check if the array is empty and it shows
@@ -158,7 +171,14 @@ class Array:
     After removing the element it reduces the length of the array.
     """
 
-    def remove(self): # You cannot change this line
+    def remove(self):
+        if len(self) == 0:
+            print("THe array is empty")
+            return -1
+
+        self.array[len(self) - 1] = None
+        if (len(self)/alloc) >= self.reduce_threshold:
+            resize(math.floor(len(self)*reduce_threshold))
 
     """
     Method that empties the array, and resizes it back to its initial capacity
@@ -166,7 +186,11 @@ class Array:
     It also resets the length of the array
     """
 
-    def clear(self: # You cannot change this line
+    def clear(self:
+        for i in range(len(self)):
+            self.array[i] = None
+        self.resize(self.og_alloc)
+        self._length = self.og_alloc
 
     """
     Magic method that is called when we use the "[" and "]" to get an 
@@ -175,30 +199,33 @@ class Array:
     Otherwise, returns "Index out of Bounds"
     """
 
-    def __getitem__(self, index): # You cannot change this line
-
+    def __getitem__(self, index):
+        if (index > 0 and index < len(self)):
+            return self.array[index]
+        return "Index out of Bounds"
     """
     Magic method that is called when we use the "[" and "]" to change
     the value of a given index.
     The method checks if the index is valid and if it, it makes the change.
     Otherwise, prints "Index out of bounds"
     """
-    def __setitem__(self,index, item): # You cannot change this line
-
+    def __setitem__(self,index, item):
+        if (index > 0 and index < len(self)):
+            self.array[index] = item
+        print("Index out of bounds")
     """
     Magic method that is called when we use the print() to print the
     content of the array
     This method returns a String.
     """
 
-    def __str__(self): # You cannot change this line
-
+    def __str__(self): 
+       print( "[" +.join(str(item) for item in self.array +"]")
     """
     Magic method that is called when we use the len() to return the 
     length of the array
     """
 
-    def __len__(self): #You cannot change this line
-
+    def __len__(self): 
         return self._length
 
