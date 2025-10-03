@@ -56,11 +56,13 @@ class Array:
     """
 
     def append(self, new_item): 
-        if (len(self) == self.alloc):
+        #print(f"length: {len(self)} \n alloc: {self.alloc}")
+        if (len(self)  == self.alloc):
             self.resize(self.new_size_ratio* len(self))
         self[self._length]= new_item
         self._length += 1
 
+        #print(f"length: {len(self)} \n alloc: {self.alloc}")
 
 
     """
