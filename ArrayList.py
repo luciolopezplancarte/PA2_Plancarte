@@ -134,7 +134,7 @@ class Array:
     def insert_after(self, index, new_item): 
         #check for validity
         if index < 0 or index >= len(self):
-            print("Index out of Bounds")
+            print("Index out of bounds")
             return
         
         if((self.alloc - len(self)) <= 0):
@@ -187,10 +187,10 @@ class Array:
     def remove_at(self, index):
         #check validity
         if index < 0 or index >= len(self):
-            print("Index out of Bounds")
+            print("Index out of bounds.")
             return
         if len(self) == 0:
-            print("The array is empty")
+            print("The array is empty.")
             return -1
         #remove
         self[index] = None
@@ -223,7 +223,7 @@ class Array:
 
     def remove(self):
         if len(self) == 0:
-            print("THe array is empty")
+            print("The array is empty.")
             return -1
 
         self[len(self) - 1] = None #REMOVE ELEMENT
@@ -255,7 +255,7 @@ class Array:
     def __getitem__(self, index):
         if (index >= 0 and index < len(self)):
             return self.array[index]
-        return "Index out of Bounds"
+        return "Index out of bounds"
     """
     Magic method that is called when we use the "[" and "]" to change
     the value of a given index.
@@ -276,7 +276,7 @@ class Array:
     def __str__(self): 
         #remove NONE
         data = self.array[:len(self)]
-        return  "[" +",".join(str(item) for item in data) +"]"
+        return  "[" +" ".join(str(item) for item in data) +" ]"
     """
     Magic method that is called when we use the len() to return the 
     length of the array

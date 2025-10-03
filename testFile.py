@@ -57,7 +57,7 @@ print(my_array) # [-4 -3.5]
 print(f"length: {len(my_array)}") #2
 my_array.clear() #resizes to its inital capacity and size
 print(my_array) # [ ]
-print(f"length: {len(my_array)}") #0
+print(f"Len: {len(my_array)}") #0
 print(f"empty?: {my_array.isEmpty()}") # True
 
 
