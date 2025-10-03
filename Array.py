@@ -1,10 +1,6 @@
 
 class Array:
 
-    #   RESIZING POLICY:
-    #     1) Double the capacity when the array is FULL
-    #     2) Reduce the capacity by 25% if it has reached
-    #        or fallen from this percentage
     """
     Constructor for the class
     The capacity of the initial array is provided by the user.
@@ -24,8 +20,16 @@ class Array:
             The initial capacity for the array
     """
 
-    def __init__(self, capacity=10): # You cannot change this line
-
+    def __init__(self, capacity=10):
+        if !(capacity > 0):
+            print("Capacity must be greater than 0")
+            return
+        self.array = [None] * capacity
+        self.length = capacity
+        self.new_size_ratio = 2
+        self.reduce_threshold = 0.25
+        self.alloc = 0
+        self.og_alloc = capacity
 
 
 
@@ -34,7 +38,10 @@ class Array:
     The method returns True or False if the array is empty
     """
 
-    def isEmpty(self): # You cannot change this line
+    def isEmpty(self):
+        if self.length == 0:
+            return True
+        return False
 
 
     """
